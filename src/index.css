@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+.nav .button button:hover {
+  background-color: #524601;
+  color: #d9c422;
+  transition: 0.3s ease-in-out;
+}
