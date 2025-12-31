@@ -5,27 +5,6 @@ import Banner from '../home/img_banner.jsx'
 import Section from '../home/section.jsx'
 
 const Home = () => {
-
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setProducts([
-        { id: 1, name: "Tomato", category: "vegetable" },
-        { id: 2, name: "Potato", category: "vegetable" },
-        { id: 3, name: "Apple", category: "fruit" },
-        { id: 4, name: "Rice", category: "grain" },
-        { id: 5, name: "Onion", category: "trending" },
-        { id: 6, name: "Banana", category: "trending" },
-      ]);
-    }, 500);
-  }, []);
-
-  const trending = products.filter(p => p.category === "trending");
-  const vegetables = products.filter(p => p.category === "vegetable");
-  const fruits = products.filter(p => p.category === "fruit");
-  const grains = products.filter(p => p.category === "grain");
-
   
   return (
     <div className='w-full'>
@@ -34,16 +13,16 @@ const Home = () => {
       <div className='w-full'>
     
       {/* Trending */}
-      <Section title="Most Trending Products" items={trending} />
+      {/* <Section title="Most Trending Products" items={trending} /> */}
 
       {/* Vegetables */}
-      <Section title="Vegetables" items={vegetables} />
+      <Section title="Vegetables" category="vegetable" />
 
       {/* Fruits */}
-      <Section title="Fruits" items={fruits} />
+      <Section title="Fruits" category="fruit" />
 
       {/* Grains */}
-      <Section title="Grains" items={grains} />
+      <Section title="Grains" category="grain" />
       </div>
     </div>
   )

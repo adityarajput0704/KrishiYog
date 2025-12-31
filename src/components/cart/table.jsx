@@ -1,7 +1,7 @@
 import React from 'react'
 import Tbody from './tbody.jsx'
 
-const Table = ({items}) => {
+const Table = ({ items, onUpdate }) => {
   return (
     <div className='overflow-x-auto'>
       <table className='w-full border-collapse'>
@@ -15,7 +15,7 @@ const Table = ({items}) => {
         </thead>
         <tbody className='text-center'>
           {items.map(item => (
-            <Tbody key={item.id} item={item} />
+            <Tbody key={item.id} item={item} onUpdate={onUpdate}  />
           ))}
         </tbody>
       </table>

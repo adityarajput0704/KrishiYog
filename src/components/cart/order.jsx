@@ -2,14 +2,14 @@ import React from 'react'
 import Payment from './payment.jsx'
 
 
-const Order = ({cartItems= [], paymentMethod= "cod"}) => {
+const Order = ({cartItems= [] }) => {
     const subtotal = cartItems.reduce(
-  (sum, item) => sum + item.price * item.quantity,
-  0
+  (sum, item) => sum + parseFloat(item.subtotal),
+    0
 );
 
-const codCharge = paymentMethod === "cod" ? 300 : 0;
-const total = subtotal + codCharge;
+ const codCharge = 50;
+  const total = subtotal + codCharge;
 
     return (
         <div className='w-full lg:w-96 xl:w-[480px] flex-shrink-0'>
@@ -27,23 +27,23 @@ const total = subtotal + codCharge;
                 {cartItems.map(item => (
           <div key={item.id} className="flex justify-between py-3 sm:py-4 border-b text-sm sm:text-base">
             <p className="font-medium">
-              {item.product} X {item.quantity}
+              {item.product.name} X {item.quantity}
             </p>
             <p className="font-medium">
-              ₹{item.price * item.quantity}
+              ₹{item.subtotal}
             </p>
           </div>
         ))}
 
                 <div className="flex justify-between py-3 sm:py-4 border-b text-sm sm:text-base">
                     <p className="font-semibold  ">Subtotal</p>
-                    <p className="font-bold text-green-600">₹{subtotal}.00</p>
+                    <p className="font-bold text-green-600">₹{subtotal.toFixed(2)}</p>
                 </div>
-
+{/* 
                 <div className="flex justify-between py-3 sm:py-4 border-b text-sm sm:text-base">
                     <p className="font-semibold">Shipping</p>
                     <p className="text-gray-500">Shipping charge</p>
-                </div>
+                </div> */}
 
                 <div className="flex justify-between py-3 sm:py-4 border-b text-sm sm:text-base">
                     <p className="font-semibold">COD Charges</p>
@@ -53,7 +53,7 @@ const total = subtotal + codCharge;
                 {/* Total */}
                 <div className="flex justify-between py-3 sm:py-4 text-lg sm:text-xl font-bold text-green-600">
                     <p >Total</p>
-                    <p >₹{total}.00</p>
+                    <p >₹{total.toFixed(2)}</p>
                 </div>
             </div>
 
