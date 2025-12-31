@@ -9,7 +9,6 @@ const Home = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // fake API delay
     setTimeout(() => {
       setProducts([
         { id: 1, name: "Tomato", category: "vegetable" },
@@ -20,8 +19,7 @@ const Home = () => {
         { id: 6, name: "Banana", category: "trending" },
       ]);
     }, 500);
-  }, []); // runs once on page load
-
+  }, []);
 
   const trending = products.filter(p => p.category === "trending");
   const vegetables = products.filter(p => p.category === "vegetable");
