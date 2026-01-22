@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import TAndC from './t&c'
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getProductById, addToCart } from '/src/services/api.js'
+import { useAuth } from '/src/context/auth.jsx'
 
 const SingleProduct = () => {
-
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,6 +31,14 @@ const SingleProduct = () => {
   }, [id]);
 
   const handleAddToCart = async () => {
+    if (!isAuthenticated) {
+      setMessage('Please login first');
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
+      return;
+    }
+
     setAddingToCart(true);
     setMessage('');
 
@@ -40,7 +50,12 @@ const SingleProduct = () => {
         setTimeout(() => setMessage(''), 3000);
       }
     } catch (error) {
-      if (error.response?.data?.error) {
+      console.error('Add to cart error:', error);
+      
+      if (error.response?.status === 401) {
+        setMessage('Please login first');
+        setTimeout(() => navigate('/login'), 1500);
+      } else if (error.response?.data?.error) {
         setMessage(error.response.data.error);
       } else {
         setMessage('Failed to add to cart');
@@ -74,10 +89,11 @@ const SingleProduct = () => {
           <div className='w-full lg:w-1/2 flex-shrink-0'>
             <img
               src={product.image_url}
-              alt="productimage"
+              alt={product.name}
               className='w-full h-64 sm:h-80 md:h-96 lg:h-[500px] object-cover rounded-lg shadow-lg'
             />
           </div>
+          
           <div className='details w-full lg:w-1/2 flex flex-col'>
             <h2 className='text-2xl sm:text-3xl lg:text-4xl font-bold mb-4'>
               {product.name}
@@ -102,20 +118,23 @@ const SingleProduct = () => {
             <p className='text-gray-700 text-sm sm:text-base lg:text-lg mb-6 leading-relaxed'>
               {product.description}
             </p>
+
             {message && (
-              <div className={`mb-4 p-3 rounded-lg ${message.includes('✓')
+              <div className={`mb-4 p-3 rounded-lg ${
+                message.includes('✓')
                   ? 'bg-green-100 text-green-700'
                   : 'bg-red-100 text-red-700'
-                }`}>
+              }`}>
                 {message}
               </div>
             )}
 
             <button
-              className={`px-6 py-3 text-base lg:text-lg rounded-lg transition font-semibold w-full sm:w-auto ${product.stock === 0
+              className={`px-6 py-3 text-base lg:text-lg rounded-lg transition font-semibold w-full sm:w-auto ${
+                product.stock === 0
                   ? 'bg-gray-400 cursor-not-allowed text-white'
                   : 'bg-green-500 text-white hover:bg-green-700'
-                }`}
+              }`}
               onClick={handleAddToCart}
               disabled={addingToCart || product.stock === 0}
             >
@@ -129,8 +148,6 @@ const SingleProduct = () => {
         </div>
       </div>
     </div>
-
-
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Home from './components/home/home.jsx'
 import Shop from './components/shop/shop.jsx'
 import Cart from './components/cart/cart.jsx'
@@ -10,39 +10,53 @@ import Nav from './components/nav/nav.jsx'
 import { Route, Routes } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import SingleProduct from './components/shop/single product/single_product.jsx'
-
+import ProtectedRoute from './components/protectedroute.jsx'
+import { AuthProvider } from './context/auth.jsx'
 
 const App = () => {
-
   const location = useLocation();
-
-  // Hide Nav & Footer on these routes
   const hideLayout = ["/login", "/register"].includes(location.pathname);
-  //  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <div>
-      <div className="min-h-screen flex flex-col">
-
-        {!hideLayout && <Nav />}
-
-        <main className='flex-grow'>
-
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/shop' element={<Shop />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/billing' element={<Billing />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/shop/:id' element={<SingleProduct />} />
-          </Routes>
-        </main>
-
-      </div>
+    <AuthProvider>
       <div>
-        {!hideLayout && <Footer />}
+        <div className="min-h-screen flex flex-col">
+          {!hideLayout && <Nav />}
+
+          <main className='flex-grow'>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/shop' element={<Shop />} />
+              <Route path='/shop/:id' element={<SingleProduct />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              
+              {/* Protected Routes */}
+              <Route 
+                path='/cart' 
+                element={
+                  <ProtectedRoute>
+                    <Cart />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path='/billing' 
+                element={
+                  <ProtectedRoute>
+                    <Billing />
+                  </ProtectedRoute>
+                } 
+              />
+            </Routes>
+          </main>
+        </div>
+        
+        <div>
+          {!hideLayout && <Footer />}
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   )
 }
 
