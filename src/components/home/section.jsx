@@ -9,7 +9,7 @@ const Section = ({ title, category }) => {
     const fetchProducts = async () => {
       try {
         const data = await getAllProducts(category);
-        setProducts(data.slice(0, 10)); // Show only first 10
+        setProducts(data.slice(0, 10)); 
       } catch (error) {
         console.error('Failed to load products:', error);
       } finally {

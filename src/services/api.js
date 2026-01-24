@@ -9,7 +9,6 @@ const api = axios.create({
   },
 });
 
-// Add token to requests
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('access_token');
@@ -23,7 +22,6 @@ api.interceptors.request.use(
   }
 );
 
-// Handle 401 errors (token expired)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -36,7 +34,6 @@ api.interceptors.response.use(
   }
 );
 
-// ========== PRODUCT APIs ==========
 export const getAllProducts = async (category = null) => {
   try {
     const url = category && category !== 'all' 
@@ -87,7 +84,6 @@ export const filterProducts = async (filters) => {
   }
 };
 
-// ========== CART APIs ==========
 export const getCart = async () => {
   try {
     const response = await api.get('/cart/');
@@ -139,7 +135,6 @@ export const removeFromCart = async (cartItemId) => {
   }
 };
 
-// ========== CHECKOUT API ==========
 export const checkout = async (customerData) => {
   try {
     const response = await api.post('/checkout/', customerData);
@@ -150,7 +145,6 @@ export const checkout = async (customerData) => {
   }
 };
 
-// ========== ORDER APIs ==========
 export const getOrderHistory = async () => {
   try {
     const response = await api.get('/orders/');

@@ -17,7 +17,7 @@ const Login = () => {
         event.preventDefault();
         setError('');
 
-        // Validation
+       
         if (!username || !password) {
             setError('Please fill in all fields');
             return;
@@ -43,7 +43,6 @@ const Login = () => {
         //     return;
         // }
 
-        // Call API
         setLoading(true);
         try {
             const result = await login(username, password);

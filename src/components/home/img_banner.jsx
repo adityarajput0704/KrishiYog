@@ -13,7 +13,7 @@ export default function HomeBanner() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 3000); // changes every 3 seconds
+    }, 3000); 
 
     return () => clearInterval(interval);
   }, []);

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 
 const Filter = ({ selectedCategory, setSelectedCategory }) => {
-  const [isOpen, setIsOpen] = useState(true) // Sidebar open by default
-
+  const [isOpen, setIsOpen] = useState(true) 
   const categories = [
     { id: "all", label: "All Products",  },
     { id: "fruit", label: "Fruits",  },
@@ -24,7 +23,6 @@ const Filter = ({ selectedCategory, setSelectedCategory }) => {
             Filters
           </button>
           
-          {/* Active Filter Badge */}
           {selectedCategory !== "all" && (
             <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
               {selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} selected
@@ -33,7 +31,6 @@ const Filter = ({ selectedCategory, setSelectedCategory }) => {
         </div>
       </div>
 
-      {/* Overlay */}
       {isOpen && (
         <div 
           className="fixed inset-0 backdrop-blur-md bg-opacity-50 z-40"
@@ -41,7 +38,6 @@ const Filter = ({ selectedCategory, setSelectedCategory }) => {
         ></div>
       )}
 
-      {/* Sidebar */}
       <div 
         className={`
           fixed left-0 top-0 bottom-0 z-50
@@ -52,7 +48,6 @@ const Filter = ({ selectedCategory, setSelectedCategory }) => {
         `}
       >
         
-        {/* Sidebar Header */}
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-800">Filters</h2>
           <button 
@@ -65,10 +60,8 @@ const Filter = ({ selectedCategory, setSelectedCategory }) => {
           </button>
         </div>
 
-        {/* Sidebar Content */}
         <div className="p-6">
           
-          {/* Category Section */}
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,7 +100,6 @@ const Filter = ({ selectedCategory, setSelectedCategory }) => {
             </div>
           </div>
 
-          {/* Price Range Section */}
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +124,6 @@ const Filter = ({ selectedCategory, setSelectedCategory }) => {
             </div>
           </div>
 
-          {/* Availability Section */}
           <div className="mb-8">
             <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,7 +144,6 @@ const Filter = ({ selectedCategory, setSelectedCategory }) => {
             </div>
           </div>
 
-          {/* Clear Filters Button */}
           <button 
             onClick={() => setSelectedCategory("all")}
             className="w-full px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition"

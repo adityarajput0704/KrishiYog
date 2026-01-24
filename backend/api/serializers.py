@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from .models import Product, CartItem, Order, OrderItem
 
 
-# ========== USER SERIALIZERS ==========
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,7 +40,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-# ========== PRODUCT SERIALIZERS ==========
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,7 +47,6 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'image_url', 'price', 'stock', 'category', 'created_at']
 
 
-# ========== CART SERIALIZERS ==========
 
 class CartItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
@@ -63,7 +60,6 @@ class CartItemSerializer(serializers.ModelSerializer):
         return obj.quantity * obj.product.price
 
 
-# ========== ORDER SERIALIZERS ==========
 
 class OrderItemSerializer(serializers.ModelSerializer):
     subtotal = serializers.SerializerMethodField()

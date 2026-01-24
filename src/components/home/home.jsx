@@ -12,9 +12,6 @@ const Home = () => {
         <Banner />
       <div className='w-full'>
     
-      {/* Trending */}
-      {/* <Section title="Most Trending Products" items={trending} /> */}
-
       {/* Vegetables */}
       <Section title="Vegetables" category="vegetable" />
 

@@ -44,7 +44,6 @@ const SearchField = () => {
           />
         </svg>
 
-        {/* Search Icon Button */}
         <button
           type="submit"
           className="absolute right-1

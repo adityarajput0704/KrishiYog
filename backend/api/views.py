@@ -16,7 +16,6 @@ from .serializers import (
 )
 
 
-# ========== AUTHENTICATION VIEWS ==========
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -88,7 +87,6 @@ def get_current_user(request):
     })
 
 
-# ========== PRODUCT VIEWS ==========
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -147,7 +145,6 @@ def product_detail(request, pk):
         )
 
 
-# ========== CART VIEWS ==========
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -214,14 +211,12 @@ def add_to_cart(request):
         }, status=status.HTTP_400_BAD_REQUEST)
     
     try:
-        # Try to get existing cart item
         cart_item = CartItem.objects.filter(
             user=request.user,
             product=product
         ).first()
         
         if cart_item:
-            # Update existing cart item
             new_quantity = cart_item.quantity + quantity
             if new_quantity > product.stock:
                 return Response({
@@ -233,15 +228,14 @@ def add_to_cart(request):
             
             cart_item.quantity = new_quantity
             cart_item.save()
-            print(f"   ✅ Updated cart item to quantity: {new_quantity}")
+            print(f" Updated cart item to quantity: {new_quantity}")
         else:
-            # Create new cart item
             cart_item = CartItem.objects.create(
                 user=request.user,
                 product=product,
                 quantity=quantity
             )
-            print(f"   ✅ Created new cart item")
+            print(f"Created new cart item")
         
         serializer = CartItemSerializer(cart_item)
         return Response({
@@ -251,7 +245,7 @@ def add_to_cart(request):
         })
         
     except Exception as e:
-        print(f"   ❌ Error creating/updating cart item: {str(e)}")
+        print(f" Error creating/updating cart item: {str(e)}")
         import traceback
         traceback.print_exc()
         return Response({
@@ -319,7 +313,6 @@ def remove_from_cart(request, pk):
         )
 
 
-# ========== CHECKOUT VIEW ==========
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

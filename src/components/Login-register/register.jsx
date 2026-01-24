@@ -18,7 +18,6 @@ const Register = () => {
         event.preventDefault();
         setError('');
 
-        // Validation
         if (!username || !password || !email) {
             setError('Please fill in all fields');
             return;
@@ -54,7 +53,6 @@ const Register = () => {
             return;
         }
 
-        // Call API
         setLoading(true);
         try {
             const result = await register({

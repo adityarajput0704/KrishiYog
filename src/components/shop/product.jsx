@@ -11,7 +11,6 @@ const Product = ({ product }) => {
   const [message, setMessage] = useState('');
 
   const handleAddToCart = async () => {
-    // Check authentication first
     if (!isAuthenticated) {
       setMessage('Please login first');
       setTimeout(() => {
