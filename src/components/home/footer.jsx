@@ -40,7 +40,7 @@ const Footer = () => {
           <p className="text-center text-sm text-gray-600">
             © 2025 Krishiyog. All rights reserved.
           </p>
-          <p className="text-center text-sm text-gray-600">Made with Aditya Rajput</p>
+          <p className="text-center text-sm text-gray-600">Made by Aditya Rajput</p>
         </div>
       </div>
     </footer>
